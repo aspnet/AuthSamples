@@ -14,6 +14,8 @@ namespace AuthSamples.Cookies
 {
     public class Startup
     {
+        public const string CookieScheme = "YourSchemeName";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,8 +28,8 @@ namespace AuthSamples.Cookies
         {
             services.AddMvc();
 
-            services.AddAuthentication("Cookies") // Sets the default scheme to cookies
-                .AddCookie("Cookies", options =>
+            services.AddAuthentication(CookieScheme) // Sets the default scheme to cookies
+                .AddCookie(CookieScheme, options =>
                 {
                     options.AccessDeniedPath = "/account/denied";
                     options.LoginPath = "/account/login";

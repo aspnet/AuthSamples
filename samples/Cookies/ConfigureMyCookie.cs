@@ -13,9 +13,9 @@ namespace AuthSamples.Cookies
         public void Configure(string name, CookieAuthenticationOptions options)
         {
             // Only configure the schemes you want
-            if (name == "YourScheme")
+            if (name == Startup.CookieScheme)
             {
-                options.LoginPath = "/someotherpath";
+                // options.LoginPath = "/someotherpath";
             }
         }
 

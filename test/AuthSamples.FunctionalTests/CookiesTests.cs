@@ -27,5 +27,17 @@ namespace AuthSamples.FunctionalTests
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
+
+        [Fact]
+        public async Task MyClaimsReturns302WhenNotLoggedIn()
+        {
+            // Arrange & Act
+            var response = await Client.GetAsync("/Home/MyClaims");
+            var content = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
+        }
+
     }
 }
