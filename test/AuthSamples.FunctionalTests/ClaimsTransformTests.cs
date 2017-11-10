@@ -27,5 +27,17 @@ namespace AuthSamples.FunctionalTests
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
+
+        [Fact]
+        public async Task MyClaimsRedirectsToLoginPageWhenNotLoggedIn()
+        {
+            // Arrange & Act
+            var response = await Client.GetAsync("/Home/MyClaims");
+            var content = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
+            Assert.Equal("http://localhost/account/login?ReturnUrl=%2FHome%2FMyClaims", response.Headers.Location.ToString());
+        }
     }
 }

@@ -51,11 +51,6 @@ namespace AuthSamples.ClaimsTransformer.Controllers
             return View();
         }
 
-        public IActionResult AccessDenied(string returnUrl = null)
-        {
-            return View();
-        }
-
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();

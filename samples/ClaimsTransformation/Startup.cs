@@ -26,12 +26,8 @@ namespace AuthSamples.ClaimsTransformer
         {
             services.AddMvc();
 
-            services.AddAuthentication("Cookies") // Sets the default scheme to cookies
-                .AddCookie("Cookies", options =>
-                {
-                    options.AccessDeniedPath = "/account/denied";
-                    options.LoginPath = "/account/login";
-                });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme) // Sets the default scheme to cookies
+                .AddCookie(options => options.LoginPath = "/account/login");
 
             // claims transformation is run after every Authenticate call
             services.AddTransient<IClaimsTransformation, ClaimsTransformer>();
