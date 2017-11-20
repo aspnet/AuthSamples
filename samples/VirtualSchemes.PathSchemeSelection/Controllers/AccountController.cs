@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuthSamples.VirtualScheme.Basic.Controllers
+namespace AuthSamples.VirtualScheme.PathSchemeSelection.Controllers
 {
 
     public class AccountController : Controller

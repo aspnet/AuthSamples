@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace AuthSamples.VirtualScheme.Basic
+namespace AuthSamples.VirtualScheme.PathSchemeSelection
 {
     public class Startup
     {

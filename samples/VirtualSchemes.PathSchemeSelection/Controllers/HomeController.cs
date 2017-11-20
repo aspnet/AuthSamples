@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
-using AuthSamples.VirtualScheme.Basic.Models;
+using AuthSamples.VirtualScheme.PathSchemeSelection.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuthSamples.VirtualScheme.Basic.Controllers
+namespace AuthSamples.VirtualScheme.PathSchemeSelection.Controllers
 {
     public class HomeController : Controller
     {

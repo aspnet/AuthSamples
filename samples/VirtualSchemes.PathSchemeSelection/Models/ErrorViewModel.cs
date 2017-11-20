@@ -1,6 +1,6 @@
 using System;
 
-namespace AuthSamples.VirtualScheme.Basic.Models
+namespace AuthSamples.VirtualScheme.PathSchemeSelection.Models
 {
     public class ErrorViewModel
     {
