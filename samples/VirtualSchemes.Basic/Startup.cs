@@ -29,8 +29,8 @@ namespace AuthSamples.VirtualScheme.Basic
         {
             services.AddMvc();
 
-            services.AddAuthentication("Request")
-                .AddVirtualScheme("Request", "Request", o =>
+            services.AddAuthentication("Dynamic")
+                .AddVirtualScheme("Dynamic", "Dynamic", o =>
                 {
                     o.DefaultSelector = ctx =>
                     {

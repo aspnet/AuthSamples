@@ -9,4 +9,4 @@ Cookie flow is the same, but notice in Startup how the "Request" virtual scheme 
 3. You should be redirected back to /Home/MyClaims which will output a few user claims from the cookie
 4. Now try going to /api/Home/MyClaims which will output a different set of claims (from the Api scheme)
 
-Startup.cs is the most interesting classes in the sample.
+Startup.cs is the most interesting class in the sample.
