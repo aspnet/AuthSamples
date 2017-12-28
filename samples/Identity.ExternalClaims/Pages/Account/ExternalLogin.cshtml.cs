@@ -1,14 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Identity.ExternalClaims.Data;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using Identity.ExternalClaims.Data;
 
 namespace Identity.ExternalClaims.Pages.Account
 {
@@ -75,6 +74,12 @@ namespace Identity.ExternalClaims.Pages.Account
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
             if (result.Succeeded)
             {
+                // Store the access token and resign in so the token is included in the cookie
+                var user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+                var props = new AuthenticationProperties();
+                props.StoreTokens(info.AuthenticationTokens);
+                await _signInManager.SignInAsync(user, props, info.LoginProvider);
+
                 _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
                 return LocalRedirect(Url.GetLocalUrl(returnUrl));
             }
@@ -115,10 +120,14 @@ namespace Identity.ExternalClaims.Pages.Account
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        // Copy over the access token claim as well
-                        await _userManager.AddClaimAsync(user, info.Principal.FindFirst("AccessToken"));
+                        // Copy over the gender claim as well
+                        await _userManager.AddClaimAsync(user, info.Principal.FindFirst(ClaimTypes.Gender));
 
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        // Include the access token in the properties
+                        var props = new AuthenticationProperties();
+                        props.StoreTokens(info.AuthenticationTokens);
+
+                        await _signInManager.SignInAsync(user, props, authenticationMethod: info.LoginProvider);
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
                         return LocalRedirect(Url.GetLocalUrl(returnUrl));
                     }
