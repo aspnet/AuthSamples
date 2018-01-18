@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using CookieSharingCore.Data;
+using CookieSharing.Core.Data;
 
-namespace CookieSharingCore
+namespace CookieSharing.Core
 {
     public class Startup
     {

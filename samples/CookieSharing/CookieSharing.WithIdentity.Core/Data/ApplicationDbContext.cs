@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using CookieSharingWithIdentityCore.Models;
+using CookieSharing.WithIdentity.Core.Models;
 
-namespace CookieSharingWithIdentityCore.Data
+namespace CookieSharing.WithIdentity.Core.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

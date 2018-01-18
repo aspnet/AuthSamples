@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace CookieSharingWithIdentityCore.Models.ManageViewModels
+namespace CookieSharing.WithIdentity.Core.Models.ManageViewModels
 {
     public class EnableAuthenticatorViewModel
     {

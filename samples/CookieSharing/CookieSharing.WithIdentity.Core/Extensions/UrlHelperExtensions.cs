@@ -1,4 +1,4 @@
-using CookieSharingWithIdentityCore.Controllers;
+using CookieSharing.WithIdentity.Core.Controllers;
 
 namespace Microsoft.AspNetCore.Mvc
 {

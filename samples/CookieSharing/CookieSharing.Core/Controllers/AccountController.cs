@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace CookieSharingCore.Controllers
+namespace CookieSharing.Core.Controllers
 {
     [Route("[controller]/[action]")]
     public class AccountController : Controller

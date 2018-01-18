@@ -1,4 +1,4 @@
-namespace CookieSharingWithIdentityCore.Models
+namespace CookieSharing.WithIdentity.Core.Models
 {
     public class ErrorViewModel
     {

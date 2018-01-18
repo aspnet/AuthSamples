@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="CookieSharingWithIdentity.MvcApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="CookieSharing.WithIdentity.NETFramework.MvcApplication" Language="C#" %>

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CookieSharingWithIdentityCore.Models.AccountViewModels
+namespace CookieSharing.WithIdentity.Core.Models.AccountViewModels
 {
     public class RegisterViewModel
     {

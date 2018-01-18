@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CookieSharingCore.Pages
+namespace CookieSharing.Core.Pages
 {
     public class IndexModel : PageModel
     {

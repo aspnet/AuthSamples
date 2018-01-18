@@ -5,12 +5,12 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using CookieSharingWithIdentity.Models;
+using CookieSharing.WithIdentity.NETFramework.Models;
 using Microsoft.Owin.Security.Interop;
 using Microsoft.AspNetCore.DataProtection;
 using System.IO;
 
-namespace CookieSharingWithIdentity
+namespace CookieSharing.WithIdentity.NETFramework
 {
     public partial class Startup
     {

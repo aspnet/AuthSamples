@@ -1,4 +1,4 @@
-namespace CookieSharingCore.Models
+namespace CookieSharing.Core.Models
 {
     public class ApplicationUser
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using CookieSharingCore.Models;
+using CookieSharing.Core.Models;
 
-namespace CookieSharingCore.Data
+namespace CookieSharing.Core.Data
 {
     public class AppDbContext : DbContext
     {

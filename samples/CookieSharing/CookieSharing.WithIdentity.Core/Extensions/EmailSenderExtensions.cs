@@ -1,7 +1,7 @@
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
-namespace CookieSharingWithIdentityCore.Services
+namespace CookieSharing.WithIdentity.Core.Services
 {
     public static class EmailSenderExtensions
     {

@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using CookieSharingWithIdentityCore.Models;
-using CookieSharingWithIdentityCore.Models.AccountViewModels;
-using CookieSharingWithIdentityCore.Services;
+using CookieSharing.WithIdentity.Core.Models;
+using CookieSharing.WithIdentity.Core.Models.AccountViewModels;
+using CookieSharing.WithIdentity.Core.Services;
 
-namespace CookieSharingWithIdentityCore.Controllers
+namespace CookieSharing.WithIdentity.Core.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]

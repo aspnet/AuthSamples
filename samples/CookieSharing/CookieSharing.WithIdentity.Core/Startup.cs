@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using CookieSharingWithIdentityCore.Data;
-using CookieSharingWithIdentityCore.Models;
-using CookieSharingWithIdentityCore.Services;
+using CookieSharing.WithIdentity.Core.Data;
+using CookieSharing.WithIdentity.Core.Models;
+using CookieSharing.WithIdentity.Core.Services;
 
-namespace CookieSharingWithIdentityCore
+namespace CookieSharing.WithIdentity.Core
 {
     public class Startup
     {
