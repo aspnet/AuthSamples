@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using CookieSharingCore.Data;
+using CookieSharing.Core.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace CookieSharingCore.Pages.Account
+namespace CookieSharing.Core.Pages.Account
 {
     public class LoginModel : PageModel
     {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace CookieSharingWithIdentityCore.Services
+namespace CookieSharing.WithIdentity.Core.Services
 {
     public interface IEmailSender
     {

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <UserSecretsId>aspnet-CookieSharingWithIdentityCore-FCC78497-E9DC-430D-BA8B-5121851C682F</UserSecretsId>
+    <UserSecretsId>aspnet-CookieSharing.WithIdentity.Core-FCC78497-E9DC-430D-BA8B-5121851C682F</UserSecretsId>
   </PropertyGroup>
 
 

@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using CookieSharingWithIdentityCore.Models;
-using CookieSharingWithIdentityCore.Models.ManageViewModels;
-using CookieSharingWithIdentityCore.Services;
+using CookieSharing.WithIdentity.Core.Models;
+using CookieSharing.WithIdentity.Core.Models.ManageViewModels;
+using CookieSharing.WithIdentity.Core.Services;
 
-namespace CookieSharingWithIdentityCore.Controllers
+namespace CookieSharing.WithIdentity.Core.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]
@@ -491,7 +491,7 @@ namespace CookieSharingWithIdentityCore.Controllers
         {
             return string.Format(
                 AuthenicatorUriFormat,
-                _urlEncoder.Encode("CookieSharingWithIdentityCore"),
+                _urlEncoder.Encode("CookieSharing.WithIdentity.Core"),
                 _urlEncoder.Encode(email),
                 unformattedKey);
         }

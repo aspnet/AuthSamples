@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace CookieSharingWithIdentityCore
+namespace CookieSharing.WithIdentity.Core
 {
     public class Program
     {

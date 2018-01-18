@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace CookieSharingWithIdentity.Controllers
+namespace CookieSharing.WithIdentity.NETFramework.Controllers
 {
     public class HomeController : Controller
     {

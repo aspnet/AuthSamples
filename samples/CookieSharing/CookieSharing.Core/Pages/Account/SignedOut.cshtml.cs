@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CookieSharingCore.Pages.Account
+namespace CookieSharing.Core.Pages.Account
 {
     public class SignedOutModel : PageModel
     {

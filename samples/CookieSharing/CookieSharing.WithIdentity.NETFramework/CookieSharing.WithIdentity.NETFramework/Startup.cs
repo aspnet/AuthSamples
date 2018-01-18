@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(CookieSharingWithIdentity.Startup))]
-namespace CookieSharingWithIdentity
+[assembly: OwinStartupAttribute(typeof(CookieSharing.WithIdentity.NETFramework.Startup))]
+namespace CookieSharing.WithIdentity.NETFramework
 {
     public partial class Startup
     {

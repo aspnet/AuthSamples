@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using CookieSharingWithIdentityCore.Models;
+using CookieSharing.WithIdentity.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace CookieSharingWithIdentityCore.Controllers
+namespace CookieSharing.WithIdentity.Core.Controllers
 {
     public class HomeController : Controller
     {

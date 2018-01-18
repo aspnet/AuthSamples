@@ -1,4 +1,4 @@
-﻿namespace CookieSharingWithIdentityCore.Models.ManageViewModels
+﻿namespace CookieSharing.WithIdentity.Core.Models.ManageViewModels
 {
     public class GenerateRecoveryCodesViewModel
     {

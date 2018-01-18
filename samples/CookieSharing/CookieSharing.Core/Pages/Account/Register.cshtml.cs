@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using CookieSharingCore.Data;
-using CookieSharingCore.Models;
+using CookieSharing.Core.Data;
+using CookieSharing.Core.Models;
 
-namespace CookieSharingCore.Pages.Account
+namespace CookieSharing.Core.Pages.Account
 {
     public class RegisterModel : PageModel
     {
