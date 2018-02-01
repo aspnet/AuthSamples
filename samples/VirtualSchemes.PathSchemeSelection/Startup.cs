@@ -29,17 +29,15 @@ namespace AuthSamples.VirtualScheme.PathSchemeSelection
         {
             services.AddMvc();
 
-            services.AddAuthentication("Dynamic")
-                .AddVirtualScheme("Dynamic", "Dynamic", o =>
-                {
-                    o.DefaultSelector = ctx =>
-                    {
-                        return ctx.Request.Path.StartsWithSegments("/api") ? "Api" : CookieAuthenticationDefaults.AuthenticationScheme;
-                    };
-                })
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddScheme<AuthenticationSchemeOptions, ApiAuthHandler>("Api", o => { })
                 .AddCookie(options =>
                 {
+                    // Foward any requests that start with /api to that scheme
+                    options.ForwardDefaultSelector = ctx =>
+                    {
+                        return ctx.Request.Path.StartsWithSegments("/api") ? "Api" : null;
+                    };
                     options.AccessDeniedPath = "/account/denied";
                     options.LoginPath = "/account/login";
                 });
