@@ -1,0 +1,29 @@
+IAuthorizationPolicyProvider Sample
+===================================
+
+This small sample demonstrates how to use `IAuthorizationPolicyProvider` to 
+dynamically produce authorization policies.
+
+In the simple example,a `MinimumAgePolicyProvider` will produce minimum age 
+policies for any integer age (based on the policy's 
+name). This demonstrates a slightly round-about way to allow 'parameterized' 
+authorization policies. Since authorization policies are identified by 
+name strings, the custom `MinimumAgeAuthorizeAttribute` in the sample 
+allows users to specify an age parameter and then embeds it into its 
+underlying `AuthorizationAttribute`'s policy name string. The 
+`MinimumAgePolicyProvider` dynamically generates the policies needed for use 
+with these attributes by pulling the age from the policy name and creating 
+necessary authorization requirements.
+
+Other uses of `IAuthorizationPolicyProvider` might be loading policy 
+information from some external data source (like a database, for example).
+
+To use the sample:
+
+1. Run the app
+2. Navigate to http://localhost:5000/values or http://localhost:5000/values/1 
+and observe how the dynamically generated authorization policies (with 
+different age requirements) are applied.
+
+The interesting classes for this sample are in the Authorization folder, 
+particularly `MinimumAgePolicyProvider`.
