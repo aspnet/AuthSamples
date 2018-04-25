@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 
-namespace PolicyProvider
+namespace CustomPolicyProvider
 {
     internal class MinimumAgePolicyProvider : IAuthorizationPolicyProvider
     {

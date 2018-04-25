@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PolicyProvider.Controllers
+namespace CustomPolicyProvider.Controllers
 {
     // Sample actions to demonstrate the use of the [MinimumAgeAuthorize] attribute
     [Route("api/[controller]")]

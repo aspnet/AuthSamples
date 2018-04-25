@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.ExternalClaims", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicSchemes", "samples\DynamicSchemes\DynamicSchemes.csproj", "{F2F7A64C-870C-40C9-B5FC-F8952F1572B3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorizationPolicyProvider", "samples\IAuthorizationPolicyProvider\AuthorizationPolicyProvider.csproj", "{70299871-8FF5-4521-AD56-48BB6E07BA13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomPolicyProvider", "samples\CustomPolicyProvider\CustomPolicyProvider.csproj", "{70299871-8FF5-4521-AD56-48BB6E07BA13}"
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticFilesAuth", "samples\StaticFilesAuth\StaticFilesAuth.csproj", "{0F013930-E66F-4F8B-95BE-CDFB417ACE3E}"
 EndProject
 Global

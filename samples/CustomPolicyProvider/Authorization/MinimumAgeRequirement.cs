@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 
-namespace PolicyProvider
+namespace CustomPolicyProvider
 {
     internal class MinimumAgeRequirement : IAuthorizationRequirement
     {
