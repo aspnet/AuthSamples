@@ -15,14 +15,14 @@ namespace CustomPolicyProvider.Controllers
         [MinimumAgeAuthorize(10)]
         public IActionResult MinimumAge10()
         {
-            return View();
+            return View("MinimumAge", 10);
         }
 
         // View protected with custom parameterized authorization policy
-        [MinimumAgeAuthorize(30)]
-        public IActionResult MinimumAge30()
+        [MinimumAgeAuthorize(50)]
+        public IActionResult MinimumAge50()
         {
-            return View();
+            return View("MinimumAge", 50);
         }
     }
 }

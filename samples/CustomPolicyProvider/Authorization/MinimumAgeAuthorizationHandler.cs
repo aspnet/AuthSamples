@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace CustomPolicyProvider
 {
     // This class contains logic for determining whether MinimumAgeRequirements in authorizaiton
-    // policies are satisfied or not.
+    // policies are satisfied or not
     internal class MinimumAgeAuthorizationHandler : AuthorizationHandler<MinimumAgeRequirement>
     {
         private readonly ILogger<MinimumAgeAuthorizationHandler> _logger;
@@ -24,30 +24,25 @@ namespace CustomPolicyProvider
             // (and requirements/handlers) are in use
             _logger.LogWarning("Evaluating authorization requirement for age >= {age}", requirement.Age);
 
-            // Check the user's age (which won't actually be used in this sample since, in an effort to 
-            // keep this sample small, we don't authenticate the user or extract any claims)
+            // Check the user's age
             var dateOfBirthClaim = context.User.FindFirst(c => c.Type == ClaimTypes.DateOfBirth);
             if (dateOfBirthClaim != null)
             {
                 // If the user has a date of birth claim, check their age
-                var dateOfBirth = Convert.ToDateTime(dateOfBirthClaim);
+                var dateOfBirth = Convert.ToDateTime(dateOfBirthClaim.Value);
                 var age = DateTime.Now.Year - dateOfBirth.Year;
                 if (dateOfBirth > DateTime.Now.AddYears(-age))
                 {
+                    // Adjust age if the user hasn't had a birthday yet this year
                     age--;
                 }
 
+                // If the user meets the age criterion, mark the authorization requirement succeeded
                 if (age >= requirement.Age)
                 {
                     context.Succeed(requirement);
                 }
             }
-
-            // For this sample, arbitrarily decide whether to satisfy the requirement since 
-            // this simple sample doesn't have any real claims to compare against. This line
-            // would, of course, not be used in a real-world application (which would make
-            // decisions based on authenticated user claims, instead).
-            if (requirement.Age % 2 == 0) context.Succeed(requirement);
 
             return Task.CompletedTask;
         }
