@@ -40,8 +40,19 @@ namespace CustomPolicyProvider
                 // If the user meets the age criterion, mark the authorization requirement succeeded
                 if (age >= requirement.Age)
                 {
+                    _logger.LogInformation("Minimum age authorization requirement {age} satisfied", requirement.Age);
                     context.Succeed(requirement);
                 }
+                else
+                {
+                    _logger.LogInformation("Current user's DateOfBirth claim ({dateOfBirth}) does not satisfy the minimum age authorization requirement {age}",
+                        dateOfBirthClaim.Value,
+                        requirement.Age);
+                }
+            }
+            else
+            {
+                _logger.LogInformation("No DateOfBirth claim present");
             }
 
             return Task.CompletedTask;
