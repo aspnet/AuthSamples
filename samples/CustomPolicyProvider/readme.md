@@ -25,9 +25,10 @@ should fall back to other policy providers (like `DefaultAuthorizationPolicyProv
 To use the sample:
 
 1. Run the app
-2. Navigate to http://localhost:5000/values or http://localhost:5000/values/1 
-and observe how the dynamically generated authorization policies (with 
-different age requirements) are applied.
+2. Navigate to http://localhost:11606/
+3. Attempt to follow one of the 'Minimum Age' links
+4. Sign in by providing a user name and birth date
+5. Notice that depending on the birth date entered, pages guarded by minimum age authorization policies will either be accessible or forbidden
 
 The interesting classes for this sample are in the Authorization folder, 
 particularly `MinimumAgePolicyProvider`.

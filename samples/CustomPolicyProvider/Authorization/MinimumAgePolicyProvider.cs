@@ -41,8 +41,8 @@ namespace CustomPolicyProvider
                 return Task.FromResult(policy.Build());
             }
 
-            // If the policy name doens't match the format expected by this policy provider,
-            // try the fallback provider. If no fallback provider is used, we would return 
+            // If the policy name doesn't match the format expected by this policy provider,
+            // try the fallback provider. If no fallback provider is used, this would return 
             // Task.FromResult<AuthorizationPolicy>(null) instead.
             return FallbackPolicyProvider.GetPolicyAsync(policyName);
         }

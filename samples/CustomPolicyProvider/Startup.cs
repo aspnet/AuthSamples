@@ -20,6 +20,8 @@ namespace CustomPolicyProvider
 
             services.AddMvc();
 
+            // Add cookie authentication so that it's possible to sign-in to test the 
+            // custom authorization policy behavior of the sample
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
