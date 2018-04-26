@@ -10,9 +10,9 @@ namespace CustomPolicyProvider
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            // An IAuthorizationPolicyProvider can take the place of the usual AddAuthorization call
-            // since it will dynamically produce necessary authorization policies (as opposed to having 
-            // them added via AddPolicy calls on an AuthorizationOptions object).
+            // Replace the default authorization policy provider with our own
+            // custom provider which can return authorization policies for given
+            // policy names (instead of using the default policy provider)
             services.AddSingleton<IAuthorizationPolicyProvider, MinimumAgePolicyProvider>();
 
             // As always, handlers must be provided for the requirements of the authorization policies

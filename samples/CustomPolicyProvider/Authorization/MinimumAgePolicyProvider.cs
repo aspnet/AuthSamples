@@ -22,7 +22,7 @@ namespace CustomPolicyProvider
             //
             // If a custom policy provider is able to handle all expected policy names then, of course, this
             // fallback pattern is unnecessary.
-            FallbackPolicyProvider = new DefaultAuthorizationPolicyProvider(options ?? Options.Create(new AuthorizationOptions()));
+            FallbackPolicyProvider = new DefaultAuthorizationPolicyProvider(options);
         }
 
         public Task<AuthorizationPolicy> GetDefaultPolicyAsync() => FallbackPolicyProvider.GetDefaultPolicyAsync();
