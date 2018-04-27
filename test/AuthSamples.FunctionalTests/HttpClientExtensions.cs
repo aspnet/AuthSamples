@@ -12,18 +12,6 @@ namespace AuthSamples.FunctionalTests
 {
     public static class HttpClientExtensions
     {
-        public static Task<HttpResponseMessage> SendAsync(this HttpClient client, string uri, string cookieHeader = null)
-        {
-            var request = new HttpRequestMessage(HttpMethod.Get, uri);
-            if (!string.IsNullOrEmpty(cookieHeader))
-            {
-                request.Headers.Add("Cookie", cookieHeader);
-            }
-
-            return client.SendAsync(request);
-        }
-
-
         // Copied from Identity functionals
         public static Task<HttpResponseMessage> SendAsync(
             this HttpClient client,
