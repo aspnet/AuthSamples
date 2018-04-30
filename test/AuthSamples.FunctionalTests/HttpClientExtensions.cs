@@ -51,8 +51,10 @@ namespace AuthSamples.FunctionalTests
 
             foreach (var header in submit.Headers)
             {
-                submision.Headers.TryAddWithoutValidation(header.Key, header.Value);
-                submision.Content.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                if (!submision.Headers.TryAddWithoutValidation(header.Key, header.Value))
+                {
+                    submision.Content.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                }
             }
 
             return client.SendAsync(submision);

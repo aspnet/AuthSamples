@@ -1,13 +1,12 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using Microsoft.AspNetCore.Mvc.Testing;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
 namespace AuthSamples.FunctionalTests
@@ -41,7 +40,7 @@ namespace AuthSamples.FunctionalTests
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Contains("<button type=\"submit\">Sign In</button>", content);
+            Assert.Equal("http://localhost/account/signin?ReturnUrl=%2FHome%2FMinimumAge10", response.RequestMessage.RequestUri.ToString());
         }
 
         [Fact]
@@ -115,7 +114,7 @@ namespace AuthSamples.FunctionalTests
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Contains("<button type=\"submit\">Sign In</button>", content);
+            Assert.Equal("http://localhost/account/signin?ReturnUrl=%2FHome%2FMinimumAge50", response.RequestMessage.RequestUri.ToString());
         }
 
         internal static async Task<HttpResponseMessage> SignIn(HttpClient client, string userName, string dob)
