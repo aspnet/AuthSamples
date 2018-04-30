@@ -107,6 +107,5 @@ namespace AuthSamples.FunctionalTests
         {
             Assert.Equal(HttpStatusCode.OK, download.StatusCode);
         }
-
     }
 }
