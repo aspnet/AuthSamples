@@ -37,40 +37,26 @@ namespace AuthSamples.FunctionalTests
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Contains("Log in</button>", content);
+            Assert.Equal("http://localhost/account/login?ReturnUrl=%2FHome%2FMyClaims", response.RequestMessage.RequestUri.ToString());
         }
 
         [Fact]
         public async Task MyClaimsShowsClaimsWhenLoggedIn()
         {
-            // Arrange & Act
-            var signIn = await SignIn(Client, "Dude");
-            Assert.Equal(HttpStatusCode.OK, signIn.StatusCode);
-
-            var response = await Client.GetAsync("/Home/MyClaims");
-            var content = await response.Content.ReadAsStringAsync();
-
-            // Assert
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Contains("<h2>HttpContext.User.Claims</h2>", content);
-            Assert.Contains("<dd>Dude</dd>", content); // Ensure user name shows up as a claim
+            // Arrange & Act & Assert
+            await SignIn("Dude");
+            await CheckMyClaims("Dude");
         }
 
         [Fact]
         public async Task LogoutClearsCookie()
         {
             // Arrange & Act
-            var signIn = await SignIn(Client, "Dude");
-            Assert.Equal(HttpStatusCode.OK, signIn.StatusCode);
+            await SignIn("Dude");
+            await CheckMyClaims("Dude");
 
-            var response = await Client.GetAsync("/Home/MyClaims");
+            var response = await Client.GetAsync("/Account/Logout");
             var content = await response.Content.ReadAsStringAsync();
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Contains("<h2>HttpContext.User.Claims</h2>", content);
-            Assert.Contains("<dd>Dude</dd>", content); // Ensure user name shows up as a claim
-
-            response = await Client.GetAsync("/Account/Logout");
-            content = await response.Content.ReadAsStringAsync();
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
             response = await Client.GetAsync("/Home/MyClaims");
@@ -81,18 +67,28 @@ namespace AuthSamples.FunctionalTests
             Assert.Contains("Log in</button>", content);
         }
 
-        internal static async Task<HttpResponseMessage> SignIn(HttpClient client, string userName)
+        internal async Task CheckMyClaims(string userName)
         {
-            var goToSignIn = await client.GetAsync("/account/login");
+            var response = await Client.GetAsync("/Home/MyClaims");
+            var content = await response.Content.ReadAsStringAsync();
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Contains("<h2>HttpContext.User.Claims</h2>", content);
+            Assert.Contains($"<dd>{userName}</dd>", content); // Ensure user name shows up as a claim
+        }
+
+        internal async Task SignIn(string userName)
+        {
+            var goToSignIn = await Client.GetAsync("/account/login");
             var signIn = await TestAssert.IsHtmlDocumentAsync(goToSignIn);
 
             var form = TestAssert.HasForm(signIn);
-            return await client.SendAsync(form, new Dictionary<string, string>()
+            await Client.SendAsync(form, new Dictionary<string, string>()
             {
                 ["username"] = userName,
                 ["password"] = userName // this test doesn't care what the password is
             });
-        }
 
+            Assert.Equal(HttpStatusCode.OK, signIn.StatusCode);
+        }
     }
 }
