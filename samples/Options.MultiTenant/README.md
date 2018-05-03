@@ -1,6 +1,7 @@
 AuthSamples.Options.MultiTenant
 
 Sample demonstrating dynamic authentication schemes and options with multiple tenants each having their own schemes and credentials:
+
 1. Run the app, the Home page will show all the authentication schemes.
 2. You can add new schemes via the form at the bottom, and remove any via the Remove button.
 3. You can also update any of the scheme options message via the add/update form.
@@ -11,11 +12,3 @@ The dynamic scheme code very similar to the dynamic scheme sample, the relevant 
 - TenantSchemeResolver: maintains the set of authentication schemes per tenant.
 - TenantOptionsMonitor: resolves the appropriate set of authentication options for the tenant.
 - TenantOptionsCache: allows the app to invalidate/update the options for a particular scheme.
-=======
-Sample demonstrating dynamic authentication schemes and options:
-1. Run the app, the Home page will show all the authentication schemes.
-2. You can add new schemes via the form at the bottom, and remove any via the Remove button.
-3. You can also update any of the scheme options message via the add/update form.
-
-Index.cshtml and Controllers/AuthController.cs are the most interesting classes in the sample,
-as they demonstrate how to add/remove schemes and update the corresponding named options dynamically.
