@@ -50,7 +50,6 @@ namespace CookieSharing.WithIdentity.Core
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
                 app.UseDatabaseErrorPage();
             }
             else
