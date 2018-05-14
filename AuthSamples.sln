@@ -26,11 +26,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicSchemes", "samples\D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomPolicyProvider", "samples\CustomPolicyProvider\CustomPolicyProvider.csproj", "{70299871-8FF5-4521-AD56-48BB6E07BA13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticFilesAuth", "samples\StaticFilesAuth\StaticFilesAuth.csproj", "{0F013930-E66F-4F8B-95BE-CDFB417ACE3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaticFilesAuth", "samples\StaticFilesAuth\StaticFilesAuth.csproj", "{0F013930-E66F-4F8B-95BE-CDFB417ACE3E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieSharing.Core", "samples\CookieSharing\CookieSharing.Core\CookieSharing.Core.csproj", "{BB68A75B-D89E-4185-A1E1-5681EC86503B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieSharing.WithIdentity.Core", "samples\CookieSharing\CookieSharing.WithIdentity.Core\CookieSharing.WithIdentity.Core.csproj", "{D9A4C65E-6B4F-4ED5-8E4E-867271DB9407}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DerivedHandlers", "samples\DerivedHandlers\DerivedHandlers.csproj", "{760047C9-2EAF-466C-860F-6CDBEC39D085}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -154,6 +156,18 @@ Global
 		{D9A4C65E-6B4F-4ED5-8E4E-867271DB9407}.Release|x64.Build.0 = Release|Any CPU
 		{D9A4C65E-6B4F-4ED5-8E4E-867271DB9407}.Release|x86.ActiveCfg = Release|Any CPU
 		{D9A4C65E-6B4F-4ED5-8E4E-867271DB9407}.Release|x86.Build.0 = Release|Any CPU
+		{760047C9-2EAF-466C-860F-6CDBEC39D085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{760047C9-2EAF-466C-860F-6CDBEC39D085}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{760047C9-2EAF-466C-860F-6CDBEC39D085}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{760047C9-2EAF-466C-860F-6CDBEC39D085}.Debug|x64.Build.0 = Debug|Any CPU
+		{760047C9-2EAF-466C-860F-6CDBEC39D085}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{760047C9-2EAF-466C-860F-6CDBEC39D085}.Debug|x86.Build.0 = Debug|Any CPU
+		{760047C9-2EAF-466C-860F-6CDBEC39D085}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{760047C9-2EAF-466C-860F-6CDBEC39D085}.Release|Any CPU.Build.0 = Release|Any CPU
+		{760047C9-2EAF-466C-860F-6CDBEC39D085}.Release|x64.ActiveCfg = Release|Any CPU
+		{760047C9-2EAF-466C-860F-6CDBEC39D085}.Release|x64.Build.0 = Release|Any CPU
+		{760047C9-2EAF-466C-860F-6CDBEC39D085}.Release|x86.ActiveCfg = Release|Any CPU
+		{760047C9-2EAF-466C-860F-6CDBEC39D085}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -169,6 +183,7 @@ Global
 		{0F013930-E66F-4F8B-95BE-CDFB417ACE3E} = {CA4538F5-9DA8-4139-B891-A13279889F79}
 		{BB68A75B-D89E-4185-A1E1-5681EC86503B} = {CA4538F5-9DA8-4139-B891-A13279889F79}
 		{D9A4C65E-6B4F-4ED5-8E4E-867271DB9407} = {CA4538F5-9DA8-4139-B891-A13279889F79}
+		{760047C9-2EAF-466C-860F-6CDBEC39D085} = {CA4538F5-9DA8-4139-B891-A13279889F79}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39E3AF62-B1FD-4156-92AA-F4FA99B5AD89}
