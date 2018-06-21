@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
+[assembly: WebApplicationFactoryContentRoot("Options.Multitenant", "../../Samples/Options.MultiTenant", "Options.Multitenant.csproj", "-1")]
 namespace AuthSamples.FunctionalTests
 {
     public class OptionsMultitenantTests : IClassFixture<WebApplicationFactory<Options.MultiTenant.Startup>>
