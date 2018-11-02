@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,27 +52,36 @@ namespace StaticFilesAuth
                         {
                             return false;
                         }
-                        var userPath = Path.Combine(usersPath, userName);
-                        if (context.Resource is IFileInfo file)
+                        if (context.Resource is Endpoint endpoint)
                         {
-                            var path = Path.GetDirectoryName(file.PhysicalPath);
-                            return string.Equals(path, basePath, StringComparison.OrdinalIgnoreCase)
-                                || string.Equals(path, usersPath, StringComparison.OrdinalIgnoreCase)
-                                || string.Equals(path, userPath, StringComparison.OrdinalIgnoreCase)
-                                || path.StartsWith(userPath + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase);
-                        }
-                        else if (context.Resource is IDirectoryContents dir)
-                        {
-                            // https://github.com/aspnet/Home/issues/3073
-                            // This won't work right if the directory is empty
-                            var path = Path.GetDirectoryName(dir.First().PhysicalPath);
-                            return string.Equals(path, basePath, StringComparison.OrdinalIgnoreCase)
-                                || string.Equals(path, usersPath, StringComparison.OrdinalIgnoreCase)
-                                || string.Equals(path, userPath, StringComparison.OrdinalIgnoreCase)
-                                || path.StartsWith(userPath + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase);
+                            var userPath = Path.Combine(usersPath, userName);
+
+                            var file = endpoint.Metadata.GetMetadata<IFileInfo>();
+                            if (file != null)
+                            {
+                                var path = Path.GetDirectoryName(file.PhysicalPath);
+                                return string.Equals(path, basePath, StringComparison.OrdinalIgnoreCase)
+                                    || string.Equals(path, usersPath, StringComparison.OrdinalIgnoreCase)
+                                    || string.Equals(path, userPath, StringComparison.OrdinalIgnoreCase)
+                                    || path.StartsWith(userPath + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase);
+                            }
+
+                            var dir = endpoint.Metadata.GetMetadata<IDirectoryContents>();
+                            if (dir != null)
+                            {
+                                // https://github.com/aspnet/Home/issues/3073
+                                // This won't work right if the directory is empty
+                                var path = Path.GetDirectoryName(dir.First().PhysicalPath);
+                                return string.Equals(path, basePath, StringComparison.OrdinalIgnoreCase)
+                                    || string.Equals(path, usersPath, StringComparison.OrdinalIgnoreCase)
+                                    || string.Equals(path, userPath, StringComparison.OrdinalIgnoreCase)
+                                    || path.StartsWith(userPath + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase);
+                            }
+
+                            throw new InvalidOperationException($"Missing file system metadata.");
                         }
 
-                        throw new NotImplementedException($"Unknown resource type '{context.Resource.GetType()}'");
+                        throw new InvalidOperationException($"Unknown resource type '{context.Resource.GetType()}'");
                     });
                 });
             });
@@ -98,12 +110,45 @@ namespace StaticFilesAuth
 
             app.Map("/MapAuthenticatedFiles", branch =>
             {
-                MapAuthenticatedFiles(branch, files);
+                // Blanket authorization, any authenticated user is allowed access to these resources.
+                branch.UseAuthorization(new AuthorizationOptions
+                {
+                    RequiredPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()
+                });
+
+                branch.UseFileServer(new FileServerOptions()
+                {
+                    EnableDirectoryBrowsing = true,
+                    FileProvider = files
+                });
             });
 
             app.Map("/MapImperativeFiles", branch =>
             {
-                MapImperativeFiles(authorizationService, branch, files);
+                branch.Use(async (context, next) =>
+                {
+                    var fileSystemInfo = GetFileSystemInfo(files, context.Request.Path);
+                    if (fileSystemInfo != null)
+                    {
+                        var endpoint = new Endpoint(
+                            c => Task.CompletedTask,
+                            new EndpointMetadataCollection(fileSystemInfo, new AuthorizeAttribute("files")),
+                            context.Request.Path);
+
+                        context.Features.Set<IEndpointFeature>(new EndpointFeature(endpoint));
+                    }
+
+                    await next();
+                });
+
+                // Policy based authorization, requests must meet the policy criteria to be get access to the resources.
+                branch.UseAuthorization();
+
+                branch.UseFileServer(new FileServerOptions()
+                {
+                    EnableDirectoryBrowsing = true,
+                    FileProvider = files
+                });
             });
 
             app.UseMvc(routes =>
@@ -114,81 +159,34 @@ namespace StaticFilesAuth
             });
         }
 
-        // Blanket authorization, any authenticated user is allowed access to these resources.
-        private static void MapAuthenticatedFiles(IApplicationBuilder branch, PhysicalFileProvider files)
+        private static object GetFileSystemInfo(PhysicalFileProvider files, string path)
         {
-            branch.Use(async (context, next) =>
+            var fileInfo = files.GetFileInfo(path);
+            if (fileInfo.Exists)
             {
-                if (!context.User.Identity.IsAuthenticated)
+                return fileInfo;
+            }
+            else
+            {
+                // https://github.com/aspnet/Home/issues/2537
+                var dir = files.GetDirectoryContents(path);
+                if (dir.Exists)
                 {
-                    await context.ChallengeAsync(new AuthenticationProperties()
-                    {
-                        // https://github.com/aspnet/Security/issues/1730
-                        // Return here after authenticating
-                        RedirectUri = context.Request.PathBase + context.Request.Path + context.Request.QueryString
-                    });
-                    return;
+                    return dir;
                 }
+            }
 
-                await next();
-            });
-            branch.UseFileServer(new FileServerOptions()
-            {
-                EnableDirectoryBrowsing = true,
-                FileProvider = files
-            });
+            return null;
         }
 
-        // Policy based authorization, requests must meet the policy criteria to be get access to the resources.
-        private static void MapImperativeFiles(IAuthorizationService authorizationService, IApplicationBuilder branch, PhysicalFileProvider files)
+        private class EndpointFeature : IEndpointFeature
         {
-            branch.Use(async (context, next) =>
-            {
-                var fileInfo = files.GetFileInfo(context.Request.Path);
-                AuthorizationResult result = null;
-                if (fileInfo.Exists)
-                {
-                    result = await authorizationService.AuthorizeAsync(context.User, fileInfo, "files");
-                }
-                else
-                {
-                    // https://github.com/aspnet/Home/issues/2537
-                    var dir = files.GetDirectoryContents(context.Request.Path);
-                    if (dir.Exists)
-                    {
-                        result = await authorizationService.AuthorizeAsync(context.User, dir, "files");
-                    }
-                    else
-                    {
-                        context.Response.StatusCode = StatusCodes.Status404NotFound;
-                        return;
-                    }
-                }
+            public Endpoint Endpoint { get; set; }
 
-                if (!result.Succeeded)
-                {
-                    if (!context.User.Identity.IsAuthenticated)
-                    {
-                        await context.ChallengeAsync(new AuthenticationProperties()
-                        {
-                            // https://github.com/aspnet/Security/issues/1730
-                            // Return here after authenticating
-                            RedirectUri = context.Request.PathBase + context.Request.Path + context.Request.QueryString
-                        });
-                        return;
-                    }
-                    // Authenticated but not authorized
-                    await context.ForbidAsync();
-                    return;
-                }
-
-                await next();
-            });
-            branch.UseFileServer(new FileServerOptions()
+            public EndpointFeature(Endpoint endpoint)
             {
-                EnableDirectoryBrowsing = true,
-                FileProvider = files
-            });
+                Endpoint = endpoint;
+            }
         }
     }
 }
