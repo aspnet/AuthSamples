@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <NoWarn>NU1605</NoWarn>
   </PropertyGroup>
 
     <!-- Workaround for https://github.com/dotnet/sdk/issues/1729 -->
@@ -21,6 +22,7 @@
     <ProjectReference Include="..\..\samples\StaticFilesAuth\StaticFilesAuth.csproj" />
 
     <PackageReference Include="Microsoft.AspNetCore" Version="$(MicrosoftAspNetCorePackageVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization.Policy" Version="$(MicrosoftAspNetCoreAuthorizationPolicyPackageVersion)" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="$(MicrosoftAspNetCoreHostingPackageVersion)" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="$(MicrosoftAspNetCoreTestHostPackageVersion)" />
     <PackageReference Include="Microsoft.AspNetCore.Testing" Version="$(MicrosoftAspNetCoreTestingPackageVersion)" />

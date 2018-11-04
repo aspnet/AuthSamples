@@ -10,8 +10,8 @@
     <MicrosoftAspNetCoreAuthenticationGooglePackageVersion>3.0.0-alpha1-10670</MicrosoftAspNetCoreAuthenticationGooglePackageVersion>
     <MicrosoftAspNetCoreAuthenticationOpenIdConnectPackageVersion>3.0.0-alpha1-10670</MicrosoftAspNetCoreAuthenticationOpenIdConnectPackageVersion>
     <MicrosoftAspNetCoreAuthenticationTwitterPackageVersion>3.0.0-alpha1-10670</MicrosoftAspNetCoreAuthenticationTwitterPackageVersion>
-    <MicrosoftAspNetCoreAuthorizationPackageVersion>3.0.0-alpha1-t000</MicrosoftAspNetCoreAuthorizationPackageVersion>
-    <MicrosoftAspNetCoreAuthorizationPolicyPackageVersion>3.0.0-alpha1-t000</MicrosoftAspNetCoreAuthorizationPolicyPackageVersion>
+    <MicrosoftAspNetCoreAuthorizationPackageVersion>3.0.0-a-alpha1-authz-middleware-16948</MicrosoftAspNetCoreAuthorizationPackageVersion>
+    <MicrosoftAspNetCoreAuthorizationPolicyPackageVersion>3.0.0-a-alpha1-authz-middleware-16948</MicrosoftAspNetCoreAuthorizationPolicyPackageVersion>
     <MicrosoftAspNetCoreCryptographyKeyDerivationPackageVersion>3.0.0-alpha1-10670</MicrosoftAspNetCoreCryptographyKeyDerivationPackageVersion>
     <MicrosoftAspNetCoreDataProtectionExtensionsPackageVersion>3.0.0-alpha1-10670</MicrosoftAspNetCoreDataProtectionExtensionsPackageVersion>
     <MicrosoftAspNetCoreDiagnosticsEntityFrameworkCorePackageVersion>3.0.0-alpha1-10670</MicrosoftAspNetCoreDiagnosticsEntityFrameworkCorePackageVersion>
