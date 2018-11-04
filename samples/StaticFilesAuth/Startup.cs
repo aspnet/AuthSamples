@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -108,48 +109,26 @@ namespace StaticFilesAuth
             
             var files = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "PrivateFiles"));
 
-            app.Map("/MapAuthenticatedFiles", branch =>
+            app.Use(async (context, next) =>
             {
-                // Blanket authorization, any authenticated user is allowed access to these resources.
-                branch.UseAuthorization(new AuthorizationOptions
+                // Set an endpoint for files inside PrivateFiles to run authorization
+                PathString remaining;
+                if (context.Request.Path.StartsWithSegments("/MapImperativeFiles", out remaining))
                 {
-                    RequiredPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()
-                });
+                    SetFileEndpoint(context, files, remaining, "files");
+                }
+                else if (context.Request.Path.StartsWithSegments("/MapAuthenticatedFiles", out remaining))
+                {
+                    SetFileEndpoint(context, files, remaining, null);
+                }
 
-                branch.UseFileServer(new FileServerOptions()
-                {
-                    EnableDirectoryBrowsing = true,
-                    FileProvider = files
-                });
+                await next();
             });
 
-            app.Map("/MapImperativeFiles", branch =>
-            {
-                branch.Use(async (context, next) =>
-                {
-                    var fileSystemInfo = GetFileSystemInfo(files, context.Request.Path);
-                    if (fileSystemInfo != null)
-                    {
-                        var endpoint = new Endpoint(
-                            c => Task.CompletedTask,
-                            new EndpointMetadataCollection(fileSystemInfo, new AuthorizeAttribute("files")),
-                            context.Request.Path);
+            app.UseAuthorization();
 
-                        context.Features.Set<IEndpointFeature>(new EndpointFeature(endpoint));
-                    }
-
-                    await next();
-                });
-
-                // Policy based authorization, requests must meet the policy criteria to be get access to the resources.
-                branch.UseAuthorization();
-
-                branch.UseFileServer(new FileServerOptions()
-                {
-                    EnableDirectoryBrowsing = true,
-                    FileProvider = files
-                });
-            });
+            app.Map("/MapAuthenticatedFiles", branch => SetupFileServer(branch, files));
+            app.Map("/MapImperativeFiles", branch => SetupFileServer(branch, files));
 
             app.UseMvc(routes =>
             {
@@ -157,6 +136,33 @@ namespace StaticFilesAuth
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private void SetupFileServer(IApplicationBuilder builder, IFileProvider files)
+        {
+            builder.UseFileServer(new FileServerOptions()
+            {
+                EnableDirectoryBrowsing = true,
+                FileProvider = files
+            });
+        }
+
+        private static void SetFileEndpoint(HttpContext context, PhysicalFileProvider files, PathString filePath, string policy)
+        {
+            var fileSystemInfo = GetFileSystemInfo(files, filePath);
+            if (fileSystemInfo != null)
+            {
+                var metadata = new List<object>();
+                metadata.Add(fileSystemInfo);
+                metadata.Add(new AuthorizeAttribute(policy));
+
+                var endpoint = new Endpoint(
+                    c => Task.CompletedTask,
+                    new EndpointMetadataCollection(metadata),
+                    context.Request.Path);
+
+                context.Features.Set<IEndpointFeature>(new EndpointFeature(endpoint));
+            }
         }
 
         private static object GetFileSystemInfo(PhysicalFileProvider files, string path)
